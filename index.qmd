@@ -1,0 +1,40 @@
+---
+title: "Faster perceptual processing time and reduced inversion effects for self-face and familiar-face perception compared to novel faces"
+author: "Deborah Apthorp"
+title-slide-attributes:
+  data-background-image: /images/rainbow.png
+  data-background-size: fill
+  data-background-opacity: "0.5"
+author: "Deborah Apthorp & Lourdes Machin"
+institute: "University of New England, NSW"
+format: 
+  revealjs: 
+    theme: sky
+    width: 1600
+    height: 900
+    incremental: true
+    preview-links: auto
+    slide-number: true
+    logo: images/UNE_logo.png
+    css: logo.css
+editor: source
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
