@@ -1,12 +1,12 @@
 ---
-title: "Faster perceptual processing time and reduced inversion effects for self-face and familiar-face perception compared to novel faces"
-author: "Deborah Apthorp"
+title: "Familiar and fast"
+subtitle: "Faster perceptual processing time and reduced inversion effects for self-face and familiar-face perception compared to novel faces"
 title-slide-attributes:
   data-background-image: /images/rainbow.png
   data-background-size: fill
   data-background-opacity: "0.5"
-author: "Deborah Apthorp & Lourdes Machin"
-institute: "University of New England, NSW"
+author: "Deborah Apthorp, Kasey McGinness, & Jessica Taubert"
+institute: "University of New England, NSW, & University of Queensland"
 format: 
   revealjs: 
     theme: sky
@@ -20,21 +20,293 @@ format:
 editor: source
 ---
 
-## Quarto
+```{r load packages and data, wrangle data}
+#| output: false
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+library(afex)
+library(emmeans)
+library(readr)
+library(tidyr)
+library(reshape2)
+library(tidyverse)
+library(dplyr)
+library (patchwork)
+library(papaja)
+library(knitr)
+library(ggrain)
 
-## Bullets
+## Recognition times 
 
-When you click the **Render** button a document will be generated that includes:
+Mean_Frames <- read_csv("Mean_Frames_Familiar_Faces_Filtered.csv")
+Mean_Frames_long <- melt(Mean_Frames, 
+                         # ID variables - all the variables to keep but not split apart on
+                         id.vars=c("Participant", "Age"),
+                         # The source columns
+                         measure.vars=c("Unfamiliar_Upright", "Unfamiliar_Inverted", 
+                                        "Familiar_Upright", "Familiar_Inverted", 
+                                        "Self_Upright", "Self_Inverted"),
+                         # Name of the destination column that will identify the original
+                         # column that the measurement came from
+                         variable.name="Condition",
+                         value.name="Mean_N_Frames"               
+                         
+                         )
 
--   Content authored with markdown
--   Output from executable code
+Mean_Frames_long <- Mean_Frames_long %>%
+  mutate(Orientation = case_when(Condition == 'Unfamiliar_Upright' ~ 'Upright',
+                                    Condition == 'Familiar_Upright' ~ 'Upright',
+                                    Condition == 'Self_Upright' ~ 'Upright',
+                                    TRUE ~ 'Inverted'))
 
-## Code
+Mean_Frames_long <- Mean_Frames_long %>%
+  mutate(Familiarity = case_when(Condition == 'Unfamiliar_Upright' ~ 'Unfamiliar',
+                                 Condition == 'Unfamiliar_Inverted' ~ 'Unfamiliar',
+                                 Condition == 'Familiar_Upright' ~ 'Familiar',
+                                 Condition == 'Familiar_Inverted' ~ 'Familiar',
+                                 TRUE ~ 'Self'))
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+Mean_Frames_long$Mean_time <- Mean_Frames_long$Mean_N_Frames*(1000/120)
+Mean_Frames_long$Age_c <- Mean_Frames_long$Age - mean(Mean_Frames_long$Age)
 
-```{r}
-1 + 1
+## Reaction times 
+
+Mean_RTs <- read_csv("Mean_Reaction_Times_Familiar_Faces_Filtered.csv")
+Mean_RTs_long <- melt(Mean_RTs, 
+                         # ID variables - all the variables to keep but not split apart on
+                         id.vars=c("Participant", "Age"),
+                         # The source columns
+                         measure.vars=c("Unfamiliar_Upright", "Unfamiliar_Inverted", 
+                                        "Familiar_Upright", "Familiar_Inverted", 
+                                        "Self_Upright", "Self_Inverted"),
+                         # Name of the destination column that will identify the original
+                         # column that the measurement came from
+                         variable.name="Condition",
+                         value.name="Mean_RT_secs" )
+
+Mean_RTs_long <- Mean_RTs_long %>%
+  mutate(Orientation = case_when(Condition == 'Unfamiliar_Upright' ~ 'Upright',
+                                    Condition == 'Familiar_Upright' ~ 'Upright',
+                                    Condition == 'Self_Upright' ~ 'Upright',
+                                    TRUE ~ 'Inverted'))
+
+Mean_RTs_long <- Mean_RTs_long %>%
+  mutate(Familiarity = case_when(Condition == 'Unfamiliar_Upright' ~ 'Unfamiliar',
+                                 Condition == 'Unfamiliar_Inverted' ~ 'Unfamiliar',
+                                 Condition == 'Familiar_Upright' ~ 'Familiar',
+                                 Condition == 'Familiar_Inverted' ~ 'Familiar',
+                                 TRUE ~ 'Self'))
+
+Mean_RTs_long$Mean_RT_ms <- Mean_RTs_long$Mean_RT_secs*(1000)
+Mean_RTs_long$Age_c <- Mean_RTs_long$Age - mean(Mean_RTs_long$Age)
+
+
+
 ```
+
+
+
+```{r do ANOVAs}
+
+#| output: false
+# Do ANOVA analysis of ratings 
+RecognitionTimes_ANOVA <- aov_ez("Participant", "Mean_time", Mean_Frames_long, 
+                                 within=c("Orientation", "Familiarity"),
+                                 factorize = FALSE, covariate = "Age_c",  
+                                 anova_table = list(correction = "none", es = "pes")) 
+
+# Do ANOVA - don't GG correct and use partial eta squared
+
+EM_Means_RecognitionTimes_Interaction <- emmeans (RecognitionTimes_ANOVA, ~ Orientation|Familiarity) # Get EM Means for interaction
+EM_Means_RecognitionTimes_Familiarity <- emmeans (RecognitionTimes_ANOVA, ~ Familiarity) # Get EM Means
+
+posthoc_RecognitionTimes_Familiarity <- pairs(EM_Means_RecognitionTimes_Familiarity, adjust="bon")
+
+# Use afex_plot to plot these more simply
+recTimesPlot <-  afex_plot(RecognitionTimes_ANOVA,  ~ Familiarity,  ~ Orientation, error = "within")
+
+
+RTs_ANOVA <- aov_ez("Participant", "Mean_RT_ms", Mean_RTs_long, within=c("Orientation", "Familiarity"),
+                            factorize = FALSE, covariate = "Age_c", anova_table = list(correction = "none", es = "pes")) # Do ANOVA - don't GG correct and use partial eta squared
+
+EM_Means_RTs <- emmeans (RTs_ANOVA, ~ Orientation|Familiarity) # Get EM Means
+
+# Use afex_plot to plot these more simply
+
+RTsPlot <-  afex_plot(RTs_ANOVA,  ~ Familiarity,  ~ Orientation, error = "within")
+
+recTimes_table <- apa_table(
+  RecognitionTimes_ANOVA$anova_table
+  , caption = "ANOVA results for recognition times."
+  , note = "This table was created with apa_table()."
+  , escape = TRUE
+)
+
+
+```
+
+
+## Talk information
+
+- This talk was written in [Quarto](https://quarto.org/) (R Markdown/R Studio) & is available online
+
+:::{.fragment .fade-in}
+
+![[bit.ly/ANS-Sleep](https/www.bit.ly/ANS-Sleep)](images/QRcode.png){fig-align="center"}
+
+:::
+
+::: notes
+
+:::
+
+## Background - face recognition
+
+- We are extremely good at recognising faces in a very short time
+- We are quicker for more familiar faces
+- Our own face (the self-face) is perhaps the most familiar of all
+- Familiarity is hard to control in a lab setting 
+- Sometimes famous faces, sometimes personally familiar
+- Sometimes participants spend time learning novel faces
+
+::: notes
+
+:::
+
+
+## Previous research
+
+- Familiar faces are more quickly detected in a visual search paradigm (Tong & Nakayama, 1999)
+- Self-faces are quicker than personally familiar faces (Bortolon & Raffard, 2018)
+- But see Bortolon et al., 2017
+- Methods used: Visual search, classification tasks (go/no-go)
+- Almost all behavioural tasks use reaction times
+
+::: notes
+
+:::
+
+
+## Our approach - staircase procedure
+
+- Brief exposure followed by a mask
+- Two-alternative forced choice - was face in upper or lower quadrant?
+
+:::{.fragment .fade-in}
+
+![An illustration of the staircase method](images/staircase.jpeg){#fig-staircase}
+:::
+
+::: notes
+
+Might need a better staircase figure
+
+:::
+
+## Setup
+
+:::{.fragment .fade-in}
+
+![A depiction of the experimental setup](images/setup.png){#fig-setup}
+:::
+
+::: notes
+
+:::
+
+## Participants
+
+- 28 female participants
+- Age: 18 - 65  ($M = 43.1$, $SD = 12.7$)
+- Originally 30 but 2 excluded due to poor task performance
+- Study was preregistered (including performance cutoffs)
+
+::: notes
+
+:::
+
+
+## Stimuli
+
+- Novel faces were sourced from the NimStim database
+- Familiar faces were images of the experimenter
+- Self-faces were selfies taken by the participants with instructions (full face, neutral expression, no hair on face, no glasses etc.)
+- All faces were cropped into an oval removing external features using MATLAB code
+- All faces transformed to B&W and contrast normalised across images
+
+::: notes
+
+:::
+
+
+## Procedure
+
+:::{.fragment .fade-in}
+
+![An illustration of the experimental procedure](images/procedure.png){#fig-procedure}
+:::
+
+::: notes
+
+:::
+
+
+## Results - recognition time
+
+- There were strong effects of orientation (inversion effect) and familiarity.
+
+- There was also a strong interaction between orientation and familiarity! 
+
+::: {.fragment .fade-in}
+
+```{r plot recognition times, dev.args = list(bg = 'transparent')}
+#| echo: false
+#| fig-height: 5
+#| fig-cap: "Mean recognition times by familiarity and inversion"
+#| cap-location: top
+
+recTimesPlot + labs(x = 'Familiarity', y = 'Mean Recognition Time (ms)') + theme_classic()  + theme(
+    panel.background = element_rect(fill='transparent'), #transparent panel bg
+    plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+    panel.grid.major = element_blank(), #remove major gridlines
+    panel.grid.minor = element_blank(), #remove minor gridlines
+    legend.background = element_rect(fill='transparent'), #transparent legend bg
+    legend.box.background = element_rect(fill='transparent') #transparent legend panel
+  )
+```
+
+:::
+
+
+::: notes
+
+:::
+
+
+## Results - reaction time
+
+- Main effect of inversion (but smaller effect size)
+- Main effect of familiarity
+- No interaction
+
+::: {.fragment .fade-in}
+
+```{r plot reaction times, dev.args = list(bg = 'transparent')}
+#| echo: false
+#| fig-height: 5
+#| fig-cap: "Mean reaction times by familiarity and inversion"
+#| cap-location: top
+
+RTsPlot + labs(x = 'Familiarity', y = 'Mean Reaction Time (ms)') + theme_classic()  + theme(
+    panel.background = element_rect(fill='transparent'), #transparent panel bg
+    plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+    panel.grid.major = element_blank(), #remove major gridlines
+    panel.grid.minor = element_blank(), #remove minor gridlines
+    legend.background = element_rect(fill='transparent'), #transparent legend bg
+    legend.box.background = element_rect(fill='transparent') #transparent legend panel
+  )
+```
+
+:::
+
+::: notes
+:::
