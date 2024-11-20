@@ -310,3 +310,12 @@ RTsPlot + labs(x = 'Familiarity', y = 'Mean Reaction Time (ms)') + theme_classic
 
 ::: notes
 :::
+
+## Discussion
+
+- Time required to do the task (as determined by staircase) is much shorter than previous RT estimates (~ 50 ms for upright, unfamiliar faces)
+- Different patterns for recognition time 
+- Inversion effect abolished for self-faces
+- Inversion effect reduced for familiar faces
+
+# Questions?{background-color="black" background-image="images/dogs.png"}
