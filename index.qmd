@@ -151,7 +151,7 @@ recTimes_table <- apa_table(
 
 :::{.fragment .fade-in}
 
-![[bit.ly/ANS-Sleep](https/www.bit.ly/ANS-Sleep)](images/QRcode.png){fig-align="center"}
+![[bit.ly/acns_apthorp](https://bit.ly/acns_apthorp)](images/QRcode.png){fig-align="center"}
 
 :::
 
@@ -193,7 +193,17 @@ recTimes_table <- apa_table(
 
 :::{.fragment .fade-in}
 
-![An illustration of the staircase method](images/staircase.jpeg){#fig-staircase}
+![An illustration of the staircase method](images/staircase2.png){#fig-staircase}
+
+::: footer
+
+Taubert, J., Apthorp, D., Aagten-Murphy, D., & Alais, D. (2011). 
+
+The role of holistic processing in face perception: Evidence from the face inversion effect. *Vision Research*, 51, 1273–1278. [10.1016/j.visres.2011.04.002](https://doi.org/10.1016/j.visres.2011.04.002)
+
+:::
+
+
 :::
 
 ::: notes
@@ -201,6 +211,7 @@ recTimes_table <- apa_table(
 Might need a better staircase figure
 
 :::
+
 
 ## Setup
 
@@ -213,12 +224,29 @@ Might need a better staircase figure
 
 :::
 
+
 ## Participants
+
+::: columns
+::: {.column width="50%" .fragment .fade-in}
+
+![](images/UNE_Face_Perception_Flyer_1.png)
+
+:::
+
+::: {.column width="50%" .fragment .fade-in}
 
 - 28 female participants
 - Age: 18 - 65  ($M = 43.1$, $SD = 12.7$)
 - Originally 30 but 2 excluded due to poor task performance
 - Study was preregistered (including performance cutoffs)
+- Why female? 
+- Avoid category decisions in task performance
+- Balancing control stimuli
+
+:::
+
+:::
 
 ::: notes
 
@@ -234,6 +262,7 @@ Might need a better staircase figure
 - All faces transformed to B&W and contrast normalised across images
 
 ::: notes
+Maybe include some images of faces here? 
 
 :::
 
