@@ -180,7 +180,9 @@ recTimes_table <- apa_table(
 - Self-faces are quicker than personally familiar faces (Bortolon & Raffard, 2018)
 - Not all studies find this result, though
 - Methods used: Visual search, classification tasks (go/no-go)
+- EEG (ERPs, connectivity)
 - Almost all behavioural tasks use reaction times
+- These are an imprecise measure of how long it takes to do the task
 
 ::: notes
 
@@ -189,12 +191,23 @@ recTimes_table <- apa_table(
 
 ## Our approach - staircase procedure
 
+::: columns
+::: {.column width="40%"}
+
 - Brief exposure followed by a mask
 - Two-alternative forced choice - was face in upper or lower quadrant?
+- Staircase - 1-up, 2-down - adapted to correct & incorrect responses
+- Each trial had 2 interleaved staircases
 
-:::{.fragment .fade-in}
+:::
 
-![](images/staircase2.png)
+:::{.column width="60%"}
+
+![](images/staircase2.png){.fragment .fade-in}
+:::
+
+:::
+
 
 ::: footer
 
@@ -252,13 +265,13 @@ Might need a better staircase figure
 ## Participants
 
 ::: columns
-::: {.column width="50%" .fragment .fade-in}
+::: {.column width="50%"}
 
-![](images/UNE_Face_Perception_Flyer_1.png)
+![](images/UNE_Face_Perception_Flyer_1.png){.fragment width="540"}
 
 :::
 
-::: {.column width="50%" .fragment .fade-in}
+::: {.column width="50%"}
 
 - 28 female participants
 - Age: 18 - 65  ($M = 43.1$, $SD = 12.7$)
@@ -285,6 +298,7 @@ Might need a better staircase figure
 - All faces were cropped into an oval removing external features using MATLAB code
 - All faces transformed to B&W and contrast normalised across images
 - Code is available on the [OSF](https://osf.io/dtm3a/)
+- Conditions: (Unfamiliar, familiar, self) x (Upright, inverted)
 
 ::: notes
 Maybe include some images of faces here? 
@@ -296,7 +310,7 @@ Maybe include some images of faces here?
 
 :::{.fragment .fade-in}
 
-![An illustration of the experimental procedure](images/procedure.png){#fig-procedure}
+![](images/procedure.png)
 :::
 
 ::: notes
