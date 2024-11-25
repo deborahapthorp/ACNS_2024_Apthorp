@@ -167,6 +167,7 @@ recTimes_table <- apa_table(
 - Familiarity is hard to control in a lab setting 
 - Sometimes famous faces, sometimes personally familiar
 - Sometimes participants spend time learning novel faces
+- Definition of what is "familiar" varies a lot between studies
 
 ::: notes
 
@@ -177,7 +178,7 @@ recTimes_table <- apa_table(
 
 - Familiar faces are more quickly detected in a visual search paradigm (Tong & Nakayama, 1999)
 - Self-faces are quicker than personally familiar faces (Bortolon & Raffard, 2018)
-- But see Bortolon et al., 2017
+- Not all studies find this result, though
 - Methods used: Visual search, classification tasks (go/no-go)
 - Almost all behavioural tasks use reaction times
 
@@ -193,7 +194,7 @@ recTimes_table <- apa_table(
 
 :::{.fragment .fade-in}
 
-![An illustration of the staircase method](images/staircase2.png){#fig-staircase}
+![](images/staircase2.png)
 
 ::: footer
 
@@ -240,7 +241,7 @@ Might need a better staircase figure
 
 :::{.fragment .fade-in}
 
-![A depiction of the experimental setup](images/setup.png){#fig-setup}
+![](images/setup.png)
 :::
 
 ::: notes
