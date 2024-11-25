@@ -198,27 +198,15 @@ recTimes_table <- apa_table(
 - Two-alternative forced choice - was face in upper or lower quadrant?
 - Staircase - 1-up, 2-down - adapted to correct & incorrect responses
 - Each trial had 2 interleaved staircases
-<<<<<<< HEAD
-
 :::
 
-:::{.column width="60%"}
+::: {.column width="60%"}
 
 ![](images/staircase2.png){.fragment .fade-in}
-:::
-
-=======
 
 :::
 
-:::{.column width="60%"}
-
-![](images/staircase2.png){.fragment .fade-in}
 :::
-
-:::
->>>>>>> bfe82022a3cec4e4a9aad87396599694d1258f9f
-
 
 ::: footer
 
@@ -228,8 +216,6 @@ The role of holistic processing in face perception: Evidence from the face inver
 
 :::
 
-
-:::
 
 ::: notes
 
@@ -248,7 +234,7 @@ Might need a better staircase figure
 :::
 
 
-::: {.column width="50%" .fragment .fade-in}
+::: {.column width="50%"}
 - Turning faces upside down makes them harder to recognise
 - Thought to be a marker of holostic processing
 - Effect is reduced or absent for objects
@@ -319,10 +305,9 @@ Maybe include some images of faces here?
 
 ## Procedure
 
-:::{.fragment .fade-in}
 
-![](images/procedure.png)
-:::
+![](images/procedure.png){.fragment height="800"}
+
 
 ::: notes
 
