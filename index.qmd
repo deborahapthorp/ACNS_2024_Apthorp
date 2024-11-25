@@ -198,6 +198,7 @@ recTimes_table <- apa_table(
 - Two-alternative forced choice - was face in upper or lower quadrant?
 - Staircase - 1-up, 2-down - adapted to correct & incorrect responses
 - Each trial had 2 interleaved staircases
+<<<<<<< HEAD
 
 :::
 
@@ -206,6 +207,17 @@ recTimes_table <- apa_table(
 ![](images/staircase2.png){.fragment .fade-in}
 :::
 
+=======
+
+:::
+
+:::{.column width="60%"}
+
+![](images/staircase2.png){.fragment .fade-in}
+:::
+
+:::
+>>>>>>> bfe82022a3cec4e4a9aad87396599694d1258f9f
 
 
 ::: footer
