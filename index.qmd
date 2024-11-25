@@ -212,6 +212,29 @@ Might need a better staircase figure
 
 :::
 
+## Inversion effect
+
+::: columns
+::: {.column width="50%" .fragment .fade-in}
+
+![](images/trump_inverted.png)
+![](images/trump_upright.png){.fragment .fade-in}
+
+:::
+
+
+::: {.column width="50%" .fragment .fade-in}
+- Turning faces upside down makes them harder to recognise
+- Thought to be a marker of holostic processing
+- Effect is reduced or absent for objects
+- Some evidence inversion effect for familiar faces is reduced
+- Feature-based processing? 
+- What about self-faces? 
+
+:::
+
+:::
+
 
 ## Setup
 
@@ -260,6 +283,7 @@ Might need a better staircase figure
 - Self-faces were selfies taken by the participants with instructions (full face, neutral expression, no hair on face, no glasses etc.)
 - All faces were cropped into an oval removing external features using MATLAB code
 - All faces transformed to B&W and contrast normalised across images
+- Code is available on the [OSF](https://osf.io/dtm3a/)
 
 ::: notes
 Maybe include some images of faces here? 
@@ -295,7 +319,7 @@ Maybe include some images of faces here?
 
 recTimesPlot + labs(x = 'Familiarity', y = 'Mean Recognition Time (ms)') + theme_classic()  + theme(
     panel.background = element_rect(fill='transparent'), #transparent panel bg
-    plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+  #  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     legend.background = element_rect(fill='transparent'), #transparent legend bg
@@ -327,7 +351,7 @@ recTimesPlot + labs(x = 'Familiarity', y = 'Mean Recognition Time (ms)') + theme
 
 RTsPlot + labs(x = 'Familiarity', y = 'Mean Reaction Time (ms)') + theme_classic()  + theme(
     panel.background = element_rect(fill='transparent'), #transparent panel bg
-    plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+   # plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     legend.background = element_rect(fill='transparent'), #transparent legend bg
@@ -346,5 +370,6 @@ RTsPlot + labs(x = 'Familiarity', y = 'Mean Reaction Time (ms)') + theme_classic
 - Different patterns for recognition time 
 - Inversion effect abolished for self-faces
 - Inversion effect reduced for familiar faces
+- Why? 
 
 # Questions?{background-color="black" background-image="images/dogs.png"}
